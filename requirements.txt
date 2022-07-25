@@ -86,4 +86,4 @@ wsproto==1.1.0
 WTForms==2.3.3
 yarg==0.1.9
 zipp==3.8.0
-Jinja2==2.11.2
+Jinja2
