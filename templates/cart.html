@@ -1,0 +1,75 @@
+{% extends "header.html" %}
+{% block content %}
+
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Welcome to ShoPREE!</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Hello there, {{ user_first }} {{ user_last }}!</p>
+        </div>
+    </div>
+</header>
+
+
+{% if user_cart_items|length == 0 %}
+<a class="cart" href="{{url_for('home')}}">Your cart is empty! Continue shopping!</a>
+{% else %}
+
+<section class="py-5">
+    <h1 style="margin-left: 330px;">Total Price: </h1>
+    <h3 style="margin-left: 330px;"> $ {{"%0.2f"%cart_total_price}} </h3>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+            {% for i in range(cart_shop_items|length) %}
+            {% if user_cart_items[i].quantity != 0 %}
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src={{cart_shop_items[i].img_url}} alt="..."/>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{cart_shop_items[i].name}}</h5>
+                            <!-- Product price-->
+                            ${{"%0.2f"%cart_shop_items[i].price}}
+                            <br>
+                            {{cart_shop_items[i].description}}
+
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                    href="{{ url_for('remove_cart', item_id= cart_shop_items[i].id,) }}">Remove
+                            from cart</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto">Quantity:
+                            {{user_cart_items[i].quantity}}</a></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+                <div class="col mb-5">
+                <div class="card-body p-4">
+                    <h1> CHECKOUT </h1>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center">
+                    <h1> $ {{"%0.2f"%cart_total_price}} </h1>
+                </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url_for('checkout') }}">PROCEED</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+</section>
+<div class="flex-wrapper"> </div>
+  <div class="footer">{% include "footer.html" %}</div>
+{% endblock %}
+
+
+
