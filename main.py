@@ -2,9 +2,6 @@
 """
 An eCommerce website with payment processing.
 """
-import sqlite3
-
-import sqlalchemy.exc
 
 """
 Using what you have learnt by building the blog website using Flask, you're now going to build your own eCommerce website. 
